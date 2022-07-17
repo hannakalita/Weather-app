@@ -18,6 +18,7 @@ ul {
 li {
   list-style: none;
   color: #475053;
+  text-transform: capitalize;
   margin: 0;
   padding: 0;
 }
