@@ -1,7 +1,38 @@
+body {
+  font-family: Poppins;
+  font-weight: 600;
+}
+
 h1 {
-  color: black;
+  color: #475053;
+  font-size: 28px;
+  line-height: 30px;
+  font-weight: 900;
+  margin-bottom: 0;
+}
+
+ul {
+  margin-top: 5px;
+  padding: 0;
+}
+li {
+  list-style: none;
+  color: #475053;
+  margin: 0;
+  padding: 0;
+}
+.weather-app-page {
+  margin: 40px auto;
+  max-width: 500px;
+}
+.weather-app {
+  margin: 40px auto;
+  max-width: 500px;
+  padding: 30px;
+  border: 1px solid #acdcee;
+  border-radius: 10px;
 }
 .sun {
   display: inline;
-  max-width: 20px;
+  max-width: 50px;
 }
