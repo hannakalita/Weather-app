@@ -36,3 +36,9 @@ li {
   display: inline;
   max-width: 50px;
 }
+.temperature-indicator strong {
+  font-size: 26px;
+}
+.temperature-indicator span {
+  position: relative;
+}
