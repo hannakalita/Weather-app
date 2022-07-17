@@ -4,11 +4,13 @@ body {
 }
 
 h1 {
+  display: block;
   color: #475053;
   font-size: 28px;
   line-height: 30px;
   font-weight: 900;
   margin-bottom: 0;
+  margin-top: 20px;
 }
 
 ul {
