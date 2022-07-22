@@ -46,3 +46,21 @@ li {
 .temperature-indicator span {
   position: relative;
 }
+hr {
+  color: #acdcee;
+}
+.weather-forecast {
+  margin-top: 10px;
+  text-align: center;
+}
+.weather-forecast-days {
+  font-size: 16px;
+  color: #475053;
+}
+.weather-forecast-temp {
+  font-size: 14px;
+  color: #475053;
+}
+.min-temp {
+  opacity: 0.9;
+}
