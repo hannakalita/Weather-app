@@ -39,6 +39,35 @@ function showTemperature(response) {
   iconElement.setAttribute("alt", response.data.weather[0].description);
 }
 
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+
+  let days = ["Wed", "Thu", "Fri", "Sat", "Sun", "Mon"];
+
+  let forecastHTML = `<div class="row">`;
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+      <div class="col-2">
+        <div class="weather-forecast-days">${day}</div>
+        <img
+          src="img/sun.png"
+          alt=""
+          width="28"
+        />
+        <div class="weather-forecast-temp">
+          <span class="max-temp"> 18° </span>
+          <span class="min-temp"> 12° </span>
+        </div>
+      </div>
+  `;
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
 function search(city) {
   let apiKey = "105f5194b1bc6b92da7dc7390ee98c0f";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
@@ -51,11 +80,11 @@ function handleSubmit(event) {
   search(cityInputElement.value);
 }
 
-search("Kyiv");
-
 let dateElement = document.querySelector("#date");
 let currentTime = new Date();
 dateElement.innerHTML = actualTime(currentTime);
 
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", handleSubmit);
+search("Kyiv");
+displayForecast();
