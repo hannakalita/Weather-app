@@ -19,6 +19,14 @@ function actualTime(date) {
   let currentDay = days[date.getDay()];
   return `Today is ${currentDay}, ${hours}:${minutes}`;
 }
+function getForecast(coordinates) {
+  console.log(coordinates);
+  let apiKey = "105f5194b1bc6b92da7dc7390ee98c0f";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  console.log(apiUrl);
+  axios.get(apiUrl).then(displayForecast);
+}
+
 function showTemperature(response) {
   let temperatureElement = document.querySelector("#temp");
   let cityElement = document.querySelector("#city");
@@ -37,33 +45,45 @@ function showTemperature(response) {
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   iconElement.setAttribute("alt", response.data.weather[0].description);
+
+  getForecast(response.data.coord);
 }
 
-function displayForecast() {
+function formatDay(timeStamp) {
+  let date = new Date(timeStamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  return days[day];
+}
+
+function displayForecast(response) {
+  let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
 
-  let days = ["Wed", "Thu", "Fri", "Sat", "Sun", "Mon"];
-
   let forecastHTML = `<div class="row">`;
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6) {
+      forecastHTML =
+        forecastHTML +
+        `
       <div class="col-2">
-        <div class="weather-forecast-days">${day}</div>
+        <div class="weather-forecast-days">${formatDay(forecastDay.dt)}</div>
         <img
-          src="img/sun.png"
+          src="http://openweathermap.org/img/wn/${
+            forecastDay.weather[0].icon
+          }@2x.png"
           alt=""
           width="28"
         />
         <div class="weather-forecast-temp">
-          <span class="max-temp"> 18° </span>
-          <span class="min-temp"> 12° </span>
+          <span class="max-temp"> ${Math.round(forecastDay.temp.max)}°</span>
+          <span class="min-temp"> ${Math.round(forecastDay.temp.min)}°</span>
         </div>
       </div>
   `;
+    }
   });
-
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
 }
@@ -87,4 +107,3 @@ dateElement.innerHTML = actualTime(currentTime);
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", handleSubmit);
 search("Kyiv");
-displayForecast();
